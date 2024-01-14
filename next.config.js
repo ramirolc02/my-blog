@@ -6,4 +6,5 @@ module.exports = {
   images: {
     unoptimized: true,
   },
+  ...nextConfig, // Add the nextConfig object to the exports
 };
