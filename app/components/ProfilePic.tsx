@@ -1,10 +1,7 @@
-"use client";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
+"use client"
+import Image from "next/image"
 
 export default function ProfilePic() {
-  const pathname = usePathname();
-  if (pathname && pathname.startsWith("/posts/")) return null;
   return (
     <section className="w-full mx-auto">
       <Image
@@ -16,5 +13,5 @@ export default function ProfilePic() {
         priority={true}
       />
     </section>
-  );
+  )
 }

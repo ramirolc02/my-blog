@@ -1,10 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "export",
-};
-module.exports = {
   images: {
-    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "raw.githubusercontent.com",
+        port: "",
+        pathname: "/ramirolc02/content/master/images/**",
+      },
+    ],
   },
-  ...nextConfig, // Add the nextConfig object to the exports
-};
+}
+
+module.exports = nextConfig

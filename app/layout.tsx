@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Navbar from "./components/Navbar";
-import ProfilePic from "./components/ProfilePic";
 import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,8 +18,9 @@ export default function RootLayout({
     <html lang="en">
       <body className="dark:bg-slate-800">
         <Navbar />
-        <ProfilePic />
-        {children}
+        <main className="px-4 md:px-6 prose prose-xl prose-slate dark:prose-invert mx-auto">
+          {children}
+        </main>
       </body>
     </html>
   );
