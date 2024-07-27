@@ -1,3 +1,57 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.theme-toggle {
+    --size: 24px;
+    --icon-fill: currentColor;
+    --icon-fill-hover: currentColor;
+    background: none;
+    border: none;
+    padding: 0;
+    inline-size: var(--size);
+    block-size: var(--size);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    outline-offset: 5px;
+  }
+  
+  .theme-toggle > svg {
+    inline-size: 100%;
+    block-size: 100%;
+    stroke-linecap: round;
+  }
+  
+  .theme-toggle > svg .sun-beams {
+    transform-origin: center center;
+  }
+  
+  :root[data-theme="dark"] .theme-toggle .sun-beams {
+    opacity: 0;
+  }
+  
+  :root[data-theme="dark"] .theme-toggle circle {
+    transform: translateX(-7px);
+  }
+  
+  .theme-toggle:is(:hover, :focus-visible) {
+    color: var(--icon-fill-hover);
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .theme-toggle > svg .sun-beams {
+      transition: transform 0.5s cubic-bezier(0.5, 1.5, 0.75, 1.25),
+      opacity 0.5s cubic-bezier(0.25, 0, 0.3, 1);
+    }
+  
+    .theme-toggle > svg circle {
+      transition: transform 0.25s cubic-bezier(0, 0, 0, 1);
+    }
+  
+    :root[data-theme="dark"] .theme-toggle .sun-beams {
+      transform: rotateZ(-25deg);
+    }
+  }

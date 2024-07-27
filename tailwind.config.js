@@ -5,8 +5,23 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: 'class', // Add this line
   theme: {
-    extend: {},
+    extend: {
+      typography: {
+        DEFAULT: {
+          css: {
+            color: 'inherit',
+            a: {
+              color: 'inherit',
+              '&:hover': {
+                color: 'inherit',
+              },
+            },
+          },
+        },
+      },
+    },
   },
   plugins: [
     require("@tailwindcss/typography"),
