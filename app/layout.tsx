@@ -1,6 +1,7 @@
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import type { Metadata } from "next"
+import { ThemeProvider } from "next-themes"
 import { Inter } from "next/font/google"
 import Navbar from "./components/Navbar"
 
@@ -18,14 +19,18 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className="dark:bg-slate-800">
-        <Navbar />
-        <main className="px-4 md:px-6 prose prose-xl prose-slate dark:prose-invert mx-auto">
-          {children}
-          <Analytics />
-          <SpeedInsights />
-        </main>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${inter.className} bg-white dark:bg-dark-primary text-black dark:text-dark-primary`}
+      >
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Navbar />
+          <main className="px-4 md:px-6 max-w-full prose prose-xl prose-slate dark:prose-invert mx-auto">
+            {children}
+            <Analytics />
+            <SpeedInsights />
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   )

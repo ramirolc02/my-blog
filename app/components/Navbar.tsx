@@ -1,26 +1,33 @@
 import Link from "next/link"
 import { FaGithub, FaLinkedin } from "react-icons/fa"
+import ThemeToggle from "./ThemeToggle"
 
 export default function Navbar() {
   return (
     <nav className="bg-slate-600 p-4 sticky top-0 drop-shadow-xl z-10">
-      <div className=" md:px-6 prose prose-xl mx-auto flex justify-between flex-col sm:flex-row">
-        <Link href="/" className="text-white/90 no-underline hover:text-white">
+      <div className="md:px-6 prose prose-xl mx-auto flex flex-wrap justify-between items-center">
+        <Link
+          href="/"
+          className="text-white/90 no-underline hover:text-white text-xl mb-2 sm:mb-0"
+        >
           Blogs
         </Link>
-        <div className="flex flex-row justify-center sm:justify-evenly align-middle gap-4 text-white text-4xl lg:text-5xl space-x-2">
-          <Link
-            className="text-white/90 hover:text-white"
-            href="https://www.linkedin.com/in/ramiro-lopez-cento/"
-          >
-            <FaLinkedin />
-          </Link>
-          <Link
-            className="text-white/90 hover:text-white"
-            href="https://github.com/ramirolc02"
-          >
-            <FaGithub />
-          </Link>
+        <div className="flex items-center space-x-4">
+          <ThemeToggle />
+          <div className="flex space-x-2 text-white text-3xl sm:text-4xl">
+            <Link
+              className="text-white/90 hover:text-white"
+              href="https://www.linkedin.com/in/ramiro-lopez-cento/"
+            >
+              <FaLinkedin />
+            </Link>
+            <Link
+              className="text-white/90 hover:text-white"
+              href="https://github.com/ramirolc02"
+            >
+              <FaGithub />
+            </Link>
+          </div>
         </div>
       </div>
     </nav>

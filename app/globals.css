@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Add this new section */
+@layer base {
+  html, body {
+    @apply overflow-x-hidden;
+  }
+}
