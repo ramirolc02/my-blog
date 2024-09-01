@@ -23,7 +23,7 @@ export default function RootLayout({
       <body
         className={`${inter.className} bg-white dark:bg-dark-primary text-black dark:text-dark-primary`}
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <Navbar />
           <main className="px-4 md:px-6 max-w-full prose prose-xl prose-slate dark:prose-invert mx-auto">
             {children}
