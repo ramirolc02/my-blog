@@ -5,13 +5,7 @@ import ThemeToggle from "./ThemeToggle"
 export default function Navbar() {
   return (
     <nav className="bg-slate-600 p-4 sticky top-0 drop-shadow-xl z-10">
-      <div className="md:px-6 prose prose-xl mx-auto flex flex-wrap justify-between items-center">
-        <Link
-          href="/"
-          className="text-white/90 no-underline hover:text-white text-xl mb-2 sm:mb-0"
-        >
-          Blogs
-        </Link>
+      <div className="md:px-6 prose prose-xl mx-auto flex justify-end items-center">
         <div className="flex items-center space-x-4">
           <ThemeToggle />
           <div className="flex space-x-2 text-white text-3xl sm:text-4xl">

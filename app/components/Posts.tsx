@@ -1,4 +1,5 @@
 import { getPostsMeta } from "@/lib/posts"
+import AnimatedWrapper from "./AnimatedWrapper"
 import ListItem from "./ListItem"
 
 export default async function Posts() {
@@ -9,12 +10,16 @@ export default async function Posts() {
   }
 
   return (
-    <section className="mt-6 mx-auto max-w-2xl">
-      <ul className="w-full list-none p-0">
+    <AnimatedWrapper className="mt-6 mx-auto max-w-4xl">
+      <ul className="grid gap-6 md:grid-cols-2">
         {posts.map((post) => (
-          <ListItem key={post.id} post={post} />
+          <li key={post.id}>
+            <AnimatedWrapper>
+              <ListItem post={post} />
+            </AnimatedWrapper>
+          </li>
         ))}
       </ul>
-    </section>
+    </AnimatedWrapper>
   )
 }
