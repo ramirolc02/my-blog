@@ -10,8 +10,8 @@ export default async function Posts() {
   }
 
   return (
-    <AnimatedWrapper className="mt-6 mx-auto max-w-4xl">
-      <ul className="grid gap-6 md:grid-cols-2">
+    <AnimatedWrapper className="mt-6 mx-auto">
+      <ul className="grid gap-6 sm:grid-cols-2">
         {posts.map((post) => (
           <li key={post.id}>
             <AnimatedWrapper>
