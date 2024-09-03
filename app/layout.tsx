@@ -20,16 +20,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${inter.className} bg-white dark:bg-dark-primary text-black dark:text-dark-primary`}
-      >
+      <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-          <Navbar />
-          <main className="px-4 md:px-6 max-w-full prose prose-xl prose-slate dark:prose-invert mx-auto">
-            {children}
-            <Analytics />
-            <SpeedInsights />
-          </main>
+          <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+            <Navbar />
+            <main className="max-w-full mx-auto">
+              <div className="px-4 md:px-6 max-w-4xl mx-auto prose prose-xl prose-slate dark:prose-invert">
+                {children}
+                <Analytics />
+                <SpeedInsights />
+              </div>
+            </main>
+          </div>
         </ThemeProvider>
       </body>
     </html>
