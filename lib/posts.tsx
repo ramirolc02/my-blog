@@ -36,6 +36,7 @@ export async function getPostByName(
     title: string,
     date: string,
     tags: string[],
+    excerpt?: string,
   }>({
     source: rawMDX,
     components: {
@@ -66,7 +67,8 @@ export async function getPostByName(
       id,
       title: frontmatter.title,
       date: frontmatter.date,
-      tags: frontmatter.tags,
+      tags: frontmatter.tags || [],
+      excerpt: frontmatter.excerpt,
     },
     content,
   }
@@ -103,4 +105,101 @@ export async function getPostsMeta(): Promise<Meta[] | undefined> {
     }
   }
   return posts.sort((a, b) => (a.date < b.date ? 1 : -1))
+}
+
+/**
+ * Get posts by specific tag
+ */
+export async function getPostsByTag(tag: string): Promise<Meta[] | undefined> {
+  const posts = await getPostsMeta();
+  if (!posts) return undefined;
+
+  return posts.filter(post => post.tags.includes(tag));
+}
+
+
+/**
+ * Get tag statistics for the entire blog
+ */
+export async function getTagStatistics(): Promise<{
+  allTags: TagStatistics[],
+  totalPosts: number,
+  tagCloud: TagStatistics[]
+} | undefined> {
+  const posts = await getPostsMeta();
+  if (!posts) return undefined;
+
+  const tagCounts = new Map<string, number>();
+
+  posts.forEach(post => {
+    post.tags.forEach(tag => {
+      tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
+    });
+  });
+
+  const allTags: TagStatistics[] = Array.from(tagCounts.entries()).map(([name, count]) => ({
+    name,
+    count,
+    frequency: count > posts.length * 0.3 ? 'high' :
+      count > posts.length * 0.1 ? 'medium' : 'low'
+  })).sort((a, b) => b.count - a.count);
+
+  return {
+    allTags,
+    totalPosts: posts.length,
+    tagCloud: allTags.slice(0, 20) // Top 20 for cloud display
+  };
+}
+
+/**
+ * Get related tags for a specific tag
+ */
+export async function getRelatedTags(targetTag: string): Promise<string[] | undefined> {
+  const posts = await getPostsByTag(targetTag);
+  if (!posts) return undefined;
+
+  const relatedTagCounts = new Map<string, number>();
+
+  posts.forEach(post => {
+    post.tags.forEach(tag => {
+      if (tag !== targetTag) {
+        relatedTagCounts.set(tag, (relatedTagCounts.get(tag) || 0) + 1);
+      }
+    });
+  });
+
+  return Array.from(relatedTagCounts.entries())
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, 10)
+    .map(([tag]) => tag);
+}
+
+/**
+ * Filter posts based on criteria
+ */
+export async function filterPosts(filters: FilterOptions): Promise<Meta[]> {
+  const posts = await getPostsMeta();
+  if (!posts) return [];
+
+  return posts.filter(post => {
+    // Filter by tags
+    if (filters.tags?.length) {
+      const hasTags = filters.tags.some(tag =>
+        post.tags.includes(tag)
+      );
+      if (!hasTags) return false;
+    }
+
+    // Filter by search term
+    if (filters.searchTerm) {
+      const searchLower = filters.searchTerm.toLowerCase();
+      const matchesTitle = post.title.toLowerCase().includes(searchLower);
+      const matchesExcerpt = post.excerpt?.toLowerCase().includes(searchLower);
+      const matchesTags = post.tags.some(tag => tag.toLowerCase().includes(searchLower));
+
+      if (!matchesTitle && !matchesExcerpt && !matchesTags) return false;
+    }
+
+    return true;
+  });
 }

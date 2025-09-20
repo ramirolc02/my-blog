@@ -9,7 +9,7 @@ type Props = {
 }
 
 export default function ListItem({ post }: Props) {
-  const { id, title, date, tags } = post
+  const { id, title, date, tags, excerpt } = post
   const formattedDate = getFormattedDate(date)
 
   return (
@@ -30,23 +30,30 @@ export default function ListItem({ post }: Props) {
           </CardHeader>
 
           <CardContent className="pt-0 pb-6 flex-1 flex flex-col justify-between">
+            {/* Excerpt */}
+            {excerpt && (
+              <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
+                {excerpt}
+              </p>
+            )}
+
             {/* Tags Section */}
             <div className="flex flex-wrap gap-1.5 mb-4">
-              {tags?.slice(0, 2).map((tag, index) => (
+              {tags?.slice(0, 3).map((tag, index) => (
                 <Badge
                   key={index}
                   variant="secondary"
-                  className="text-xs px-2 py-0.5 bg-secondary/60 text-secondary-foreground font-medium"
+                  className="text-xs px-2 py-0.5 bg-secondary/60 text-secondary-foreground font-medium hover:bg-primary hover:text-primary-foreground transition-colors"
                 >
                   {tag}
                 </Badge>
               ))}
-              {tags?.length > 2 && (
+              {tags?.length > 3 && (
                 <Badge
                   variant="outline"
                   className="text-xs px-2 py-0.5 text-muted-foreground border-muted-foreground/30"
                 >
-                  +{tags.length - 2}
+                  +{tags.length - 3}
                 </Badge>
               )}
             </div>
