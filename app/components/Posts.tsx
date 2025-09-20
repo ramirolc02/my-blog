@@ -16,13 +16,11 @@ export default async function Posts() {
   return (
     <section className="w-full">
       <AnimatedWrapper>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-          {posts.map((post, index) => (
-            <div key={post.id} className="w-full">
-              <AnimatedWrapper>
-                <ListItem post={post} />
-              </AnimatedWrapper>
-            </div>
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+          {posts.map((post) => (
+            <AnimatedWrapper key={post.id}>
+              <ListItem post={post} />
+            </AnimatedWrapper>
           ))}
         </div>
       </AnimatedWrapper>

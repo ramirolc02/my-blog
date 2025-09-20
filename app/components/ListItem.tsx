@@ -1,6 +1,6 @@
 import getFormattedDate from "@/lib/getFormattedDate"
 import Link from "next/link"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Calendar } from "lucide-react"
 
@@ -13,27 +13,30 @@ export default function ListItem({ post }: Props) {
   const formattedDate = getFormattedDate(date)
 
   return (
-    <article className="group h-full">
-      <Link href={`/posts/${id}`} className="block h-full">
-        <Card className="h-full transition-all duration-300 hover:shadow-xl hover:scale-[1.02] border-border/50 hover:border-primary/20 bg-card text-card-foreground">
-          <CardHeader className="space-y-2 pb-4">
-            <CardTitle className="text-xl font-semibold leading-tight line-clamp-2 group-hover:text-primary transition-colors duration-200">
-              {title}
-            </CardTitle>
-            <CardDescription className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Calendar className="h-4 w-4" />
-              {formattedDate}
-            </CardDescription>
+    <article className="group">
+      <Link href={`/posts/${id}`} className="block">
+        <Card className="transition-all duration-200 hover:shadow-lg hover:shadow-primary/5 border hover:border-primary/20 bg-card/50 backdrop-blur-sm">
+          <CardHeader className="pb-3">
+            <div className="space-y-3">
+              <CardTitle className="text-xl font-semibold leading-snug group-hover:text-primary transition-colors duration-200 line-clamp-2">
+                {title}
+              </CardTitle>
+
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Calendar className="h-3.5 w-3.5" />
+                <time dateTime={date}>{formattedDate}</time>
+              </div>
+            </div>
           </CardHeader>
 
-          <CardContent className="space-y-4 pt-0">
+          <CardContent className="pt-0 pb-6">
             {/* Tags Section */}
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5 mb-4">
               {tags?.slice(0, 2).map((tag, index) => (
                 <Badge
                   key={index}
                   variant="secondary"
-                  className="text-xs px-2 py-1 bg-secondary/80 hover:bg-secondary text-secondary-foreground"
+                  className="text-xs px-2 py-0.5 bg-secondary/60 text-secondary-foreground font-medium"
                 >
                   {tag}
                 </Badge>
@@ -41,18 +44,18 @@ export default function ListItem({ post }: Props) {
               {tags?.length > 2 && (
                 <Badge
                   variant="outline"
-                  className="text-xs px-2 py-1 border-border/50 text-muted-foreground"
+                  className="text-xs px-2 py-0.5 text-muted-foreground border-muted-foreground/30"
                 >
-                  +{tags.length - 2} more
+                  +{tags.length - 2}
                 </Badge>
               )}
             </div>
 
             {/* Read More Section */}
-            <div className="flex items-center justify-end pt-2">
-              <div className="flex items-center gap-2 text-sm font-medium text-primary group-hover:text-primary/80 transition-colors">
+            <div className="flex items-center justify-end">
+              <div className="flex items-center gap-1.5 text-sm font-medium text-primary/80 group-hover:text-primary transition-all duration-200">
                 <span>Read more</span>
-                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
+                <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform duration-200" />
               </div>
             </div>
           </CardContent>
