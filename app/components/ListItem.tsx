@@ -1,40 +1,49 @@
 import getFormattedDate from "@/lib/getFormattedDate"
 import Link from "next/link"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { ArrowRight } from "lucide-react"
 
 type Props = {
   post: Meta
 }
 
 export default function ListItem({ post }: Props) {
-  const { id, title, date } = post
+  const { id, title, date, tags } = post
   const formattedDate = getFormattedDate(date)
 
   return (
-    <Link href={`/posts/${id}`} className="block no-underline">
-      <article className="bg-white dark:bg-slate-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out border border-gray-200 dark:border-gray-700 hover:border-indigo-500 dark:hover:border-indigo-400">
-        <div className="p-6">
-          <h2 className="text-xl font-semibold mb-2 text-gray-800 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-300 no-underline">
+    <Link href={`/posts/${id}`} className="block">
+      <Card className="h-full transition-all duration-300 hover:shadow-lg hover:scale-[1.02] group cursor-pointer">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-xl leading-tight group-hover:text-primary transition-colors">
             {title}
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 no-underline">
+          </CardTitle>
+          <CardDescription className="text-sm text-muted-foreground">
             {formattedDate}
-          </p>
-          <span className="text-indigo-600 dark:text-indigo-400 font-medium inline-flex items-center hover-bounce">
-            Read more
-            <svg
-              className="w-4 h-4 ml-2"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </span>
-        </div>
-      </article>
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="pt-0">
+          <div className="flex items-center justify-between">
+            <div className="flex flex-wrap gap-1">
+              {tags?.slice(0, 3).map((tag, index) => (
+                <Badge key={index} variant="secondary" className="text-xs">
+                  {tag}
+                </Badge>
+              ))}
+              {tags?.length > 3 && (
+                <Badge variant="outline" className="text-xs">
+                  +{tags.length - 3}
+                </Badge>
+              )}
+            </div>
+            <div className="flex items-center text-sm text-primary group-hover:translate-x-1 transition-transform">
+              <span className="mr-1">Read more</span>
+              <ArrowRight className="h-4 w-4" />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </Link>
   )
 }

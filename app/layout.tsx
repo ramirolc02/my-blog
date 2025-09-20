@@ -1,7 +1,7 @@
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import type { Metadata } from "next"
-import { ThemeProvider } from "next-themes"
+import { ThemeProvider } from "./providers/ThemeProvider"
 import { Inter } from "next/font/google"
 import Navbar from "./components/Navbar"
 
@@ -20,17 +20,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-          <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <body className={inter.className} suppressHydrationWarning>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="min-h-screen bg-background">
             <Navbar />
-            <main className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="max-w-4xl mx-auto">
-                {children}
-                <Analytics />
-                <SpeedInsights />
-              </div>
+            <main className="flex-1">
+              {children}
             </main>
+            <Analytics />
+            <SpeedInsights />
           </div>
         </ThemeProvider>
       </body>

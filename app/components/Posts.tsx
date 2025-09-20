@@ -6,20 +6,22 @@ export default async function Posts() {
   const posts = await getPostsMeta()
 
   if (!posts) {
-    return <p className="mt-10 text-center">Sorry, no posts available.</p>
+    return (
+      <div className="flex flex-col items-center justify-center py-12">
+        <p className="text-muted-foreground text-lg">Sorry, no posts available.</p>
+      </div>
+    )
   }
 
   return (
     <AnimatedWrapper>
-      <ul className="grid gap-6 sm:grid-cols-2 not-prose">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
         {posts.map((post) => (
-          <li key={post.id}>
-            <AnimatedWrapper>
-              <ListItem post={post} />
-            </AnimatedWrapper>
-          </li>
+          <AnimatedWrapper key={post.id}>
+            <ListItem post={post} />
+          </AnimatedWrapper>
         ))}
-      </ul>
+      </div>
     </AnimatedWrapper>
   )
 }
