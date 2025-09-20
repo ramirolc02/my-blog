@@ -5,7 +5,7 @@ export const revalidate = 86400
 
 export default function Home() {
   return (
-    <div className="container mx-auto px-4 py-8 sm:py-12 max-w-7xl">
+    <div className="container mx-auto px-4 py-8 sm:py-12 max-w-7xl overflow-hidden">
       <AnimatedWrapper>
         <header className="text-center mb-16">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">

@@ -12,19 +12,15 @@ export default function CustomImage({ src, alt, priority }: Props) {
 
     return (
         <figure className="my-8 not-prose">
-            <Card className="overflow-hidden bg-card/50 backdrop-blur-sm border-border/50">
-                <div className="relative w-full">
+            <Card className="overflow-hidden bg-card/50 backdrop-blur-sm border-border/50 max-w-2xl mx-auto">
+                <div className="relative w-full aspect-video">
                     <Image
-                        className="w-full h-auto rounded-t-lg transition-transform duration-300 hover:scale-[1.02]"
+                        className="rounded-t-lg transition-transform duration-300 hover:scale-[1.02] object-cover"
                         src={src}
                         alt={alt}
-                        width={800}
-                        height={600}
+                        fill
                         priority={prty}
-                        style={{
-                            width: '100%',
-                            height: 'auto',
-                        }}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
                     />
                 </div>
                 {alt && (
