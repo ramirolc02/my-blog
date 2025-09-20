@@ -1,8 +1,8 @@
 import CustomImage from "@/app/components/CustomImage"
 import Video from "@/app/components/Video"
 import { compileMDX } from "next-mdx-remote/rsc"
-import rehypeAutolinkHeadings from "rehype-autolink-headings/lib"
-import rehypeHighlight from "rehype-highlight/lib"
+import rehypeAutolinkHeadings from "rehype-autolink-headings"
+import rehypeHighlight from "rehype-highlight"
 import rehypeSlug from "rehype-slug"
 
 type FileTree = {
@@ -45,7 +45,7 @@ export async function getPostByName(
     options: {
       parseFrontmatter: true,
       mdxOptions: {
-        rehypePlugins: [  
+        rehypePlugins: [
           rehypeHighlight,
           rehypeSlug,
           [

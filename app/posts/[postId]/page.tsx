@@ -7,9 +7,9 @@ import { notFound } from "next/navigation"
 export const revalidate = 86400
 
 type Props = {
-  params: {
+  params: Promise<{
     postId: string
-  }
+  }>
 }
 
 export async function generateStaticParams() {
@@ -22,7 +22,8 @@ export async function generateStaticParams() {
   }))
 }
 
-export async function generateMetadata({ params: { postId } }: Props) {
+export async function generateMetadata({ params }: Props) {
+  const { postId } = await params
   const post = await getPostByName(`${postId}.mdx`) //deduped!
 
   if (!post) {
@@ -36,7 +37,8 @@ export async function generateMetadata({ params: { postId } }: Props) {
   }
 }
 
-export default async function Post({ params: { postId } }: Props) {
+export default async function Post({ params }: Props) {
+  const { postId } = await params
   const post = await getPostByName(`${postId}.mdx`) //deduped!
 
   if (!post) notFound()

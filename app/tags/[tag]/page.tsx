@@ -5,13 +5,13 @@ import Link from "next/link"
 export const revalidate = 86400
 
 type Props = {
-    params: {
+    params: Promise<{
         tag: string
-    }
+    }>
 }
 
 export async function generateStaticParams() {
-    const posts = await getPostsMeta() 
+    const posts = await getPostsMeta()
 
     if (!posts) return []
 
@@ -20,15 +20,17 @@ export async function generateStaticParams() {
     return Array.from(tags).map((tag) => ({ tag }))
 }
 
-export function generateMetadata({ params: { tag } }: Props) {
+export async function generateMetadata({ params }: Props) {
+    const { tag } = await params
 
     return {
         title: `Posts about ${tag}`
     }
 }
 
-export default async function TagPostList({ params: { tag } }: Props) {
-    const posts = await getPostsMeta() 
+export default async function TagPostList({ params }: Props) {
+    const { tag } = await params
+    const posts = await getPostsMeta()
 
     if (!posts) return <p className="mt-10 text-center">Sorry, no posts available.</p>
 
