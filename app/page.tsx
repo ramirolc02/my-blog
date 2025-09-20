@@ -5,15 +5,19 @@ export const revalidate = 86400
 
 export default function Home() {
   return (
-    <div className="pt-8 sm:pt-12">
+    <div className="container mx-auto px-4 py-8 sm:py-12 max-w-7xl overflow-hidden">
       <AnimatedWrapper>
-        <h1 className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-12">
-          Ramiro Lopez Cento&apos;s Website
-        </h1>
+        <header className="text-center mb-16">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+            Ramiro Lopez Cento&apos;s Website
+          </h1>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Argentinean guy living in Spain. Curiously learning about stuff including tech, sports, health, investing, guitar, and more. Not great at any of them ... yet.
+          </p>
+        </header>
       </AnimatedWrapper>
-      <div className="prose prose-xl prose-slate dark:prose-invert max-w-none">
-        <Posts />
-      </div>
+
+      <Posts />
     </div>
   )
 }

@@ -1,27 +1,38 @@
 import Link from "next/link"
-import { FaGithub, FaLinkedin } from "react-icons/fa"
+import { Github, Linkedin } from "lucide-react"
 import ThemeToggle from "./ThemeToggle"
+import { Button } from "@/components/ui/button"
 
 export default function Navbar() {
   return (
-    <nav className="bg-slate-600 p-4 sticky top-0 drop-shadow-xl z-10">
-      <div className="md:px-6 prose prose-xl mx-auto flex justify-end items-center">
-        <div className="flex items-center space-x-4">
-          <ThemeToggle />
-          <div className="flex space-x-2 text-white text-3xl sm:text-4xl">
+    <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+        <Link href="/" className="font-bold text-xl hover:text-primary transition-colors">
+          RLC
+        </Link>
+
+        <div className="flex items-center space-x-2">
+          <Button variant="ghost" size="icon" asChild>
             <Link
-              className="text-white/90 hover:text-white"
               href="https://www.linkedin.com/in/ramiro-lopez-cento/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn Profile"
             >
-              <FaLinkedin />
+              <Linkedin className="h-5 w-5" />
             </Link>
+          </Button>
+          <Button variant="ghost" size="icon" asChild>
             <Link
-              className="text-white/90 hover:text-white"
               href="https://github.com/ramirolc02"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub Profile"
             >
-              <FaGithub />
+              <Github className="h-5 w-5" />
             </Link>
-          </div>
+          </Button>
+          <ThemeToggle />
         </div>
       </div>
     </nav>
