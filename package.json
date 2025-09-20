@@ -10,7 +10,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postbuild": "next-sitemap"
+    "postbuild": "next-sitemap",
+    "publish-blog": "./scripts/publish-blog.sh",
+    "quick-publish": "./scripts/quick-publish.sh",
+    "convert-obsidian": "node scripts/obsidian-to-blog.js"
   },
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^2.1.16",
