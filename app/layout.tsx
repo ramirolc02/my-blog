@@ -4,13 +4,18 @@ import type { Metadata } from "next"
 import { ThemeProvider } from "./providers/ThemeProvider"
 import { Inter } from "next/font/google"
 import Navbar from "./components/Navbar"
-
 import "./globals.css"
-const inter = Inter({ subsets: ["latin"] })
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
-  title: "Ramiro`s Blog - Next.js",
+  title: "Ramiro's Blog - Next.js",
   description: "Created by Ramiro Lopez Cento",
+  keywords: ["blog", "nextjs", "react", "typescript", "technology"],
+  authors: [{ name: "Ramiro Lopez Cento" }],
 }
 
 export default function RootLayout({
@@ -20,14 +25,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className} suppressHydrationWarning>
+      <body
+        className={inter.className}
+        suppressHydrationWarning
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <div className="min-h-screen bg-background">
+          <div className="relative flex min-h-screen flex-col bg-background">
             <Navbar />
             <main className="flex-1">
               {children}

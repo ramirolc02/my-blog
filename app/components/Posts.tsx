@@ -7,21 +7,25 @@ export default async function Posts() {
 
   if (!posts) {
     return (
-      <div className="flex flex-col items-center justify-center py-12">
-        <p className="text-muted-foreground text-lg">Sorry, no posts available.</p>
+      <div className="flex min-h-[400px] flex-col items-center justify-center py-12">
+        <p className="text-lg text-muted-foreground">Sorry, no posts available.</p>
       </div>
     )
   }
 
   return (
-    <AnimatedWrapper>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-        {posts.map((post) => (
-          <AnimatedWrapper key={post.id}>
-            <ListItem post={post} />
-          </AnimatedWrapper>
-        ))}
-      </div>
-    </AnimatedWrapper>
+    <section className="w-full">
+      <AnimatedWrapper>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+          {posts.map((post, index) => (
+            <div key={post.id} className="w-full">
+              <AnimatedWrapper>
+                <ListItem post={post} />
+              </AnimatedWrapper>
+            </div>
+          ))}
+        </div>
+      </AnimatedWrapper>
+    </section>
   )
 }
