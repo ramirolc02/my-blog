@@ -12,7 +12,7 @@ export default function Home() {
             Ramiro Lopez Cento&apos;s Website
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Welcome to my personal blog where I share insights about technology, development, and life experiences.
+            23 year old guy from Argentina living in Spain. Learning stuff including tech, sports, health, investing, guitar, and more. Not great at any of them yet, but getting closer everyday.
           </p>
         </header>
       </AnimatedWrapper>
