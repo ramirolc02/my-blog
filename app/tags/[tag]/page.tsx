@@ -110,7 +110,7 @@ export default async function TagPostList({ params }: Props) {
                         {tag}
                     </h1>
                     <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-                        Explore all content tagged with "{tag}".
+                        Explore all content tagged with &ldquo;{tag}&rdquo;.
                     </p>
 
                     {/* Stats Cards */}

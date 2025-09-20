@@ -137,12 +137,17 @@ export async function getTagStatistics(): Promise<{
     });
   });
 
-  const allTags: TagStatistics[] = Array.from(tagCounts.entries()).map(([name, count]) => ({
-    name,
-    count,
-    frequency: count > posts.length * 0.3 ? 'high' :
-      count > posts.length * 0.1 ? 'medium' : 'low'
-  })).sort((a, b) => b.count - a.count);
+  const allTags: TagStatistics[] = Array.from(tagCounts.entries()).map(([name, count]) => {
+    const frequency: 'high' | 'medium' | 'low' =
+      count > posts.length * 0.3 ? 'high' :
+        count > posts.length * 0.1 ? 'medium' : 'low';
+
+    return {
+      name,
+      count,
+      frequency
+    };
+  }).sort((a, b) => b.count - a.count);
 
   return {
     allTags,
