@@ -12,7 +12,7 @@ export default function Home() {
             Ramiro Lopez Cento&apos;s Website
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Argentinean guy living in Spain. Curiously learning about stuff including tech, sports, health, investing, guitar, and more. Not great at any of them ... yet.
+            Argentinian guy living in Spain. Curiously learning about stuff including tech, sports, health, investing, guitar, and more. Not great at any of them ... yet.
           </p>
         </header>
       </AnimatedWrapper>
