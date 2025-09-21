@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowLeft, Calendar, Tag } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 
-export const revalidate = 86400
+// Removed conflicting revalidate setting to allow manual revalidation
 
 type Props = {
   params: Promise<{

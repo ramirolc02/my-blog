@@ -22,51 +22,98 @@ async function verifyGitHubSignature(request: NextRequest, body: string): Promis
 }
 
 async function handleRevalidation(request: NextRequest) {
-  let path: string = "/";
-
   if (request.method === "GET") {
-    // Manual revalidation with secret token (for your curl commands)
-    const secret = request.nextUrl.searchParams.get("secret");
-    path = request.nextUrl.searchParams.get("path") || "/";
+    const secret = request.nextUrl.searchParams.get("secret")
+    const path = request.nextUrl.searchParams.get("path") || "/"
 
     if (secret !== process.env.GITHUB_WEBHOOK_SECRET) {
       return new NextResponse(JSON.stringify({ message: "Invalid Token" }), {
         status: 401,
         statusText: "Unauthorized",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
       })
     }
+
+    // Simple: Just revalidate the path
+    revalidatePath(path)
+    console.log('Manually revalidated path:', path)
+
+    return NextResponse.json({
+      revalidated: true,
+      path
+    })
   } else if (request.method === "POST") {
-    // GitHub webhook with signature verification
     const body = await request.text()
 
     if (!(await verifyGitHubSignature(request, body))) {
       return new NextResponse(JSON.stringify({ message: "Invalid Signature" }), {
         status: 401,
         statusText: "Unauthorized",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
       })
     }
 
-    // Optional: Parse the webhook payload to get specific paths
     try {
       const payload = JSON.parse(body)
-      // You could revalidate specific paths based on which files changed
-      // For now, we'll revalidate the homepage for any push
-      path = "/"
+
+      // Debug: Log the payload to see what files are included
+      console.log('Webhook payload commits:', JSON.stringify(payload.commits?.map((c: any) => ({
+        added: c.added,
+        modified: c.modified,
+        removed: c.removed
+      })), null, 2))
+
+      const pathsToRevalidate = new Set<string>()
+
+      // Always revalidate the homepage and tags page
+      pathsToRevalidate.add("/")
+      pathsToRevalidate.add("/tags")
+
+      // Simple: Revalidate affected post pages
+      payload.commits?.forEach((commit: any) => {
+        const allAffectedFiles = [...(commit.added || []), ...(commit.modified || []), ...(commit.removed || [])]
+        allAffectedFiles.forEach((file: string) => {
+          if (file.endsWith(".mdx")) {
+            const postId = file.replace(/\.mdx$/, "")
+            pathsToRevalidate.add(`/posts/${postId}`)
+          }
+        })
+      })
+
+      // Simple: Just revalidate the paths
+      const revalidationPromises = Array.from(pathsToRevalidate).map((path) =>
+        revalidatePath(path)
+      )
+
+      await Promise.all(revalidationPromises)
+
+      console.log('Revalidated paths:', Array.from(pathsToRevalidate))
+
+      return NextResponse.json({
+        revalidated: true,
+        revalidatedPaths: Array.from(pathsToRevalidate)
+      })
     } catch (error) {
-      // If payload parsing fails, just revalidate the homepage
-      path = "/"
+      if (error instanceof Error) {
+        return new NextResponse(JSON.stringify({ message: "Error parsing payload", error: error.message }), {
+          status: 400,
+          statusText: "Bad Request",
+          headers: { "Content-Type": "application/json" },
+        })
+      }
+      return new NextResponse(JSON.stringify({ message: "An unknown error occurred" }), {
+        status: 500,
+        statusText: "Internal Server Error",
+        headers: { "Content-Type": "application/json" },
+      })
     }
+  } else {
+    return new NextResponse(JSON.stringify({ message: "Method Not Allowed" }), {
+      status: 405,
+      statusText: "Method Not Allowed",
+      headers: { "Content-Type": "application/json" },
+    })
   }
-
-  revalidatePath(path)
-
-  return NextResponse.json({ revalidated: true })
 }
 
 export async function GET(request: NextRequest) {
