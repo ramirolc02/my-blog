@@ -22,7 +22,7 @@ const titlesLeftToRight = [
 const bookAuthors: Record<string, string> = {
     "The Da Vinci Code": "Dan Brown",
     "The Great Economists": "Linda Yueh",
-    "The Wall": "Marlen Haushofer",
+    "The Wall": "John Lanchester",
     "Surely You're Joking, Mr. Feynman!":
         "Richard P. Feynman, Ralph Leighton",
     "The Fabric of Reality": "David Deutsch",
