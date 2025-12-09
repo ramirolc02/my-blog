@@ -1,0 +1,73 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem 0;
+}
+
+.controls {
+  display: flex;
+  gap: 0.625rem;
+}
+
+/* Bookshelf Container */
+.bookshelfContainer {
+  position: relative;
+  width: 100%;
+  max-width: 90vw;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 0.5rem;
+}
+
+/* SVG Overlay */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Book Path - Default State */
+.bookPath {
+  fill: transparent;
+  stroke: transparent;
+  cursor: pointer;
+  pointer-events: all;
+  transition:
+    fill 0.2s ease,
+    stroke 0.2s ease,
+    filter 0.2s ease;
+}
+
+/* Book Path - Hover State */
+.bookPathHovered {
+  fill: rgba(59, 130, 246, 0.3);
+  stroke: rgba(59, 130, 246, 0.8);
+  stroke-width: 3px;
+  filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.8));
+}
+
+/* Book Path - Selected State */
+.bookPathSelected {
+  fill: rgba(34, 197, 94, 0.3);
+  stroke: rgba(34, 197, 94, 1);
+  stroke-width: 3px;
+  filter: drop-shadow(0 0 15px rgba(34, 197, 94, 0.9));
+}
+
+/* Overlay Disabled State */
+.overlayDisabled .bookPath {
+  pointer-events: none;
+  cursor: default;
+}
+
+

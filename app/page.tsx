@@ -41,6 +41,17 @@ export default function Home() {
               </a>
             </span>
 
+            <span className="text-xl text-muted-foreground text-center max-w-3xl leading-relaxed">
+              <a
+                href="/bookshelf"
+                rel="noopener noreferrer"
+                className="underline hover:text-foreground transition-colors"
+              >
+                A look into (part of) my bookshelf.
+              </a>
+            </span>
+
+
           </div>
         </header>
       </AnimatedWrapper>
