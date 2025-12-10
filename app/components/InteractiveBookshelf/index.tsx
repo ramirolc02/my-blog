@@ -6,8 +6,6 @@ import { BookPath } from "./BookPath"
 import { InfoPanel } from "./InfoPanel"
 import type {
   Book,
-  BookshelfData,
-  BookMetadata,
   InteractiveBookshelfProps,
   SelectionState,
 } from "@/types/bookshelf"
