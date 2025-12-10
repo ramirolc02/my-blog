@@ -39,9 +39,9 @@
 /* Book Path - Default State */
 .bookPath {
   fill: transparent;
-  stroke: transparent;
   cursor: pointer;
   pointer-events: all;
+  outline: none;
   transition:
     fill 0.2s ease,
     stroke 0.2s ease,
