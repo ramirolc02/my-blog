@@ -1,3 +1,2 @@
 # my blog
-
-### Access: https://www.ramirolopezcento.tech
+https://www.ramirolopezcento.tech
