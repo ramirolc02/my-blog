@@ -13,7 +13,13 @@
     "postbuild": "next-sitemap",
     "publish-blog": "./scripts/publish-blog.sh",
     "quick-publish": "./scripts/quick-publish.sh",
-    "convert-obsidian": "node scripts/obsidian-to-blog.js"
+    "convert-obsidian": "node scripts/obsidian-to-blog.js",
+    "blog:preview": "node scripts/obsidian-to-blog.js --preview",
+    "blog:dry-run": "node scripts/obsidian-to-blog.js --dry-run",
+    "blog:local": "node scripts/obsidian-to-blog.js --no-publish",
+    "blog:publish": "node scripts/obsidian-to-blog.js",
+    "blog:help": "node scripts/obsidian-to-blog.js --help",
+    "gif:compress": "bash scripts/compress-gifs.sh"
   },
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^2.1.16",
