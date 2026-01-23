@@ -13,7 +13,6 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Ramiro's Blog - Next.js",
-  description: "Created by Ramiro Lopez Cento",
   keywords: ["blog", "nextjs", "react", "typescript", "technology"],
   authors: [{ name: "Ramiro Lopez Cento" }],
 }
