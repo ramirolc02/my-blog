@@ -1,4 +1,5 @@
-import { revalidatePath } from "next/cache"
+import { BLOG_CONTENT_CACHE_TAG } from "@/lib/cache"
+import { revalidatePath, revalidateTag } from "next/cache"
 import { NextRequest, NextResponse } from "next/server"
 import crypto from "crypto"
 
@@ -35,6 +36,7 @@ async function handleRevalidation(request: NextRequest) {
     }
 
     // Simple: Just revalidate the path
+    revalidateTag(BLOG_CONTENT_CACHE_TAG)
     revalidatePath(path)
     console.log('Manually revalidated path:', path)
 
@@ -64,6 +66,8 @@ async function handleRevalidation(request: NextRequest) {
       })), null, 2))
 
       const pathsToRevalidate = new Set<string>()
+
+      revalidateTag(BLOG_CONTENT_CACHE_TAG)
 
       // Always revalidate the homepage and tags page
       pathsToRevalidate.add("/")

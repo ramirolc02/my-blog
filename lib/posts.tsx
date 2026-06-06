@@ -1,5 +1,6 @@
 import CustomImage from "@/app/components/CustomImage"
 import Video from "@/app/components/Video"
+import { BLOG_CONTENT_CACHE_TAG } from "@/lib/cache"
 import { compileMDX } from "next-mdx-remote/rsc"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypeHighlight from "rehype-highlight"
@@ -17,13 +18,14 @@ export async function getPostByName(
   fileName: string
 ): Promise<BlogPost | undefined> {
   const res = await fetch(
-    `https://raw.githubusercontent.com/ramirolc02/content/master/${fileName}`,
+    `https://api.github.com/repos/ramirolc02/content/contents/${fileName}?ref=master`,
     {
       headers: {
-        Accept: "application/vnd.github+json",
+        Accept: "application/vnd.github.raw+json",
         Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
         "X-GitHub-Api-Version": "2022-11-28",
       },
+      next: { tags: [BLOG_CONTENT_CACHE_TAG] },
     }
   )
   if (!res.ok) return undefined
@@ -84,6 +86,7 @@ export async function getPostsMeta(): Promise<Meta[] | undefined> {
         Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
         "X-GitHub-Api-Version": "2022-11-28",
       },
+      next: { tags: [BLOG_CONTENT_CACHE_TAG] },
     }
   )
 
